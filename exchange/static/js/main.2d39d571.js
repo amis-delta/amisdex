@@ -33376,7 +33376,7 @@
                 return s.a.createElement("div", null, i.props.bridgeStatus.bridgeMode ? !i.props.bridgeStatus.canReadBook && i.props.bridgeStatus.withinGracePeriod ? s.a.createElement(u.x, {
                     header: "Connecting to Ethereum network ...",
                     bsStyle: "info"
-                }, s.a.createElement("p", null, "Waiting for MetaMask, Mist, INFURA or other web3 provider to initialise ...")) : i.props.bridgeStatus.web3Present ? i.props.bridgeStatus.unsupportedNetwork ? s.a.createElement(u.x, {
+                }, s.a.createElement("p", null, "Waiting for MetaMask, TrustWallet, Mist, Nifty, SaturnWallet or other web3 provider to initialise ...")) : i.props.bridgeStatus.web3Present ? i.props.bridgeStatus.unsupportedNetwork ? s.a.createElement(u.x, {
                     header: "Unsupported Ethereum Network",
                     bsStyle: "danger"
                 }, s.a.createElement("p", null, "This book is only available on the ", i.props.bridgeStatus.targetNetworkName, "."), s.a.createElement("p", null, "Try changing Ethereum Network in your Ethereum Client (e.g. Metamask, Mist, Ledger). You might need to reload this page.")) : i.props.bridgeStatus.networkChanged ? s.a.createElement(u.x, {
@@ -35658,7 +35658,7 @@
                 if ("3" === t)
                     return "https://ropsten.infura.io/" + e;
                 if ("1" === t)
-                    return "https://mainnet.infura.io/" + e;
+                    return "https://classic.blockscout.com/" + e;
                 if ("4" === t)
                     return "https://rinkeby.infura.io/" + e;
                 throw new Error("unknown networkId " + t)
@@ -37712,7 +37712,7 @@
         });
         t.addProvider(y);
         var b = e.dataSubprovider || new d({
-            rpcUrl: e.rpcUrl || "https://mainnet.infura.io/",
+            rpcUrl: e.rpcUrl || "https://classic.blockscout.com/",
             originHttpHeaderKey: e.originHttpHeaderKey
         });
         return t.addProvider(b),
