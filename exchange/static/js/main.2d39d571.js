@@ -15855,7 +15855,7 @@
                 u[c] = arguments[c];
             return n = i = o(this, (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(e, [this].concat(u))),
             i.computeBaseUrl = function() {
-                return "Ropsten Test Network" === i.props.networkName ? "https://ropsten.etherscan.io/tx/" : "Main Network" === i.props.networkName ? "https://etherscan.io/tx/" : "Rinkeby Test Network" === i.props.networkName ? "https://rinkeby.etherscan.io/rx/" : void 0
+                return "Ropsten Test Network" === i.props.networkName ? "https://ropsten.etherscan.io/tx/" : "Main Network" === i.props.networkName ? "https://blockscout.com/etc/mainnet/txs/" : "Rinkeby Test Network" === i.props.networkName ? "https://rinkeby.etherscan.io/rx/" : void 0
             }
             ,
             a = n,
@@ -33073,7 +33073,7 @@
                     condensed: !0,
                     hover: !0
                 }, s.a.createElement("thead", null, s.a.createElement("tr", null, s.a.createElement("th", null), s.a.createElement("th", null, "Base"), s.a.createElement("th", null, "Counter"))), s.a.createElement("tbody", null, s.a.createElement("tr", null, s.a.createElement("td", null, "Symbol"), "LIVE" === this.props.pairInfo.liveness ? s.a.createElement("td", null, s.a.createElement("a", {
-                    href: "https://etherscan.io/token/" + this.props.pairInfo.base.address,
+                    href: "https://blockscout.com/etc/mainnet/tokens/" + this.props.pairInfo.base.address,
                     target: "_blank",
                     rel: "noopener noreferrer"
                 }, this.props.pairInfo.base.symbol)) : s.a.createElement("td", null, this.props.pairInfo.base.symbol), s.a.createElement("td", null, this.props.pairInfo.quote.symbol)), s.a.createElement("tr", null, s.a.createElement("td", null, "Name"), s.a.createElement("td", null, this.props.pairInfo.base.name), s.a.createElement("td", null, this.props.pairInfo.quote.name)), s.a.createElement("tr", null, s.a.createElement("td", null, "Type"), s.a.createElement("td", null, this.props.pairInfo.base.tradableType), s.a.createElement("td", null, this.props.pairInfo.quote.tradableType)), s.a.createElement("tr", null, s.a.createElement("td", null, "Minimum Order"), s.a.createElement("td", null, this.props.pairInfo.base.minInitialSize), s.a.createElement("td", null, this.props.pairInfo.quote.minInitialSize)))), this.props.pairInfo.base.notes ? s.a.createElement(u.x, {
@@ -33082,7 +33082,7 @@
                     bsStyle: "info"
                 }, "Make sure you are trading the correct token - symbols are not always unique!", s.a.createElement("br", null), "The address of this token is:", s.a.createElement("a", {
                     className: "tinyHex",
-                    href: "https://etherscan.io/token/" + this.props.pairInfo.base.address,
+                    href: "https://blockscout.com/etc/mainnet/tokens/" + this.props.pairInfo.base.address,
                     target: "_blank",
                     rel: "noopener noreferrer"
                 }, this.props.pairInfo.base.address), ".", s.a.createElement("br", null), "Careful though - never send tokens (or ether) to a token address - that's not how it works and you won't get them back.") : void 0, "TEST" === this.props.pairInfo.liveness ? s.a.createElement(u.x, {
@@ -33092,7 +33092,7 @@
                     target: "_blank"
                 }, "here"), s.a.createElement("br", null), s.a.createElement("br", null), "The address of this token is:", s.a.createElement("a", {
                     className: "tinyHex",
-                    href: "https://ropsten.etherscan.io/token/" + this.props.pairInfo.base.address,
+                    href: "https://ropsten.blockscout.com/etc/mainnet/tokens/" + this.props.pairInfo.base.address,
                     target: "_blank",
                     rel: "noopener noreferrer"
                 }, this.props.pairInfo.base.address), ".", s.a.createElement("br", null), s.a.createElement("br", null), "Careful though - never send tokens (or ether) to a token address - that's not how it works and you won't get them back.") : void 0, this.props.pairInfo.newerVersion ? s.a.createElement(u.x, {
@@ -35426,7 +35426,7 @@
             }
             ,
             this.warn = function(e) {
-                console.log("UbiTok Bridge Warning:", e)
+                console.log("AmisDex UbiTok Bridge Warning:", e)
             }
             ,
             this.getInitialStatus = function() {
@@ -35435,7 +35435,8 @@
                     web3Present: !1,
                     chosenSupportedNetworkName: void 0,
                     targetNetworkName: i.targetNetworkInfo.name,
-                    unsupportedNetwork: !1,
+                    // unsupportedNetwork: !1,
+                    unsupportedNetwork: void 0,
                     networkChanged: !1,
                     chosenAccount: void 0,
                     accountLocked: !1,
