@@ -8,7 +8,7 @@
 &nbsp;[![ßtesting Dubiex](https://img.shields.io/badge/ßtesting-dubiex-yellow.svg)](https://dubiex.com/AMIS/ETH)&nbsp;[![Official AmisLedgerDex](https://img.shields.io/badge/official-ledgerdex-1330e3.svg)](https://app.ledgerdex.com/#/app/orders/maker-taker/AMIS/0x949bed886c739f1a3273629b3320db0c5024c719/WETH/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
 )&nbsp;[![Official Cryptoderivatives](https://img.shields.io/badge/official-cryptoderivatives-4330e7.svg)](https://cryptoderivatives.market/token/AMIS)&nbsp;[![Official Cryptocompare](https://img.shields.io/badge/official-cryptocompare-brightgreen.svg)](https://www.cryptocompare.com/coins/amis)&nbsp;[![Official DexTracker](https://img.shields.io/badge/official-dextracker-brightgreen.svg)](https://etherscan.io/dextracker?filter=&q=AMIS)
 &nbsp;[![ßtesting TokenStore](https://img.shields.io/badge/ßtesting-TokenStore-yellow.svg)](https://token.store/trade/0x949bed886c739f1a3273629b3320db0c5024c719)
-&nbsp;[![αtesting EthenMarket](https://img.shields.io/badge/αtesting-ethenmarket-lightgrey.svg)](https://ethen.market/949bed886c739f1a3273629b3320db0c5024c719)&nbsp;[![ßtesting AmisDex](https://img.shields.io/badge/ßtesting-amisdex-lightblue.svg)](https://amis-erc20.github.io/amisdex);[![Live stateofthedapps](https://img.shields.io/badge/live-stateofthedapps-brightgreen.svg)](https://www.stateofthedapps.com/dapps/amisdex)
+&nbsp;[![αtesting EthenMarket](https://img.shields.io/badge/αtesting-ethenmarket-lightgrey.svg)](https://ethen.market/949bed886c739f1a3273629b3320db0c5024c719)&nbsp;[![ßtesting AmisDex](https://img.shields.io/badge/ßtesting-amisdex-lightblue.svg)](https://amis-erc20.github.io/amisdex);[![Live stateofthedapps](https://img.shields.io/badge/live-stateofthedapps-brightgreen.svg)](https://www.stateofthedapps.com/dapps/amisdex);[![Amis-Etc-Saturn](https://img.shields.io/badge/Amis-etc-saturn-brightgreen.svg)](https://www.saturn.network/exchange/ETC/order-book/0xd8ebe4e6ac8d3c85e2f243e11e8b96c9b12c85af)
 
 
 What is Amidex ?
@@ -16,23 +16,23 @@ What is Amidex ?
 # Amisdex
 
 Amisdex is a Web front end designed to interact with a dedicated smart contract acting as the On-chain orderbook featuring builtin order matching engine powered by the ethereum blockchain. 
-* static content behind https://amis-erc20.github.io/amisdex/exchange/?pairId=AMIS-ETH
-* git clone https://github.com/amis-erc20/amisdex
+* static content behind https://amis-delta.github.io/amisdex/exchange/?pairId=AMIS-ETC
+* git clone https://github.com/amis-delta/amisdex
 
 ## Mainnet
 
 The URL below connects you to the live mainnet contract UI:
-- [https://amisdex.github.io/amis-exchange-www/exchange/?pairId=AMIS-ETH](https://amisdex.github.io/amis-exchange-www/exchange/?pairId=AMIS-ETH)
-- https://etherscan.io/address/0x2cc69cAaaAa6114ddf48F4DdB2AdB9c5d5d3e048#code OnChainOrderBookV012b  
-- https://etherscan.io/address/0x4875ae0e3fdfb9779d92b4c7bc5ce852434442b3#code ORA Incentivized Reward Token
+- [https://amis-delta.github.io/amisdex/exchange/?pairId=AMIS-ETC](https://amis-delta.github.io/amis-exchange-www/exchange/?pairId=AMIS-ETH)
+- https://blockscout.com/etc/mainnet/address/0xe4cdd296ac85c7d8477988f582d457e638349947#code OnChainOrderBookV012b  
+- https://blockscout.com/etc/mainnet/address/0x4875ae0e3fdfb9779d92b4c7bc5ce852434442b3#code WETC Incentivized Reward Token
 
 ## Offline demo
 Try it
-- [https://amisdex.github.io/amis-exchange-www/exchange/?pairId=DEMO-ETH&vu=1](https://amisdex.github.io/amis-exchange-www/exchange/?pairId=DEMO-ETH&vu=1)
+- [https://amis-delta.github.io/amisdex/exchange/?pairId=DEMO-ETC&vu=1](https://amisdex.github.io/amis-exchange-www/exchange/?pairId=DEMO-ETH&vu=1)
 
 ## Ropsten On-Chain Order Book
 
-- [https://amisdex.github.io/amis-exchange-www/exchange/?pairId=AMISTEST-ETH](https://amisdex.github.io/amis-exchange-www/exchange/?pairId=AMISTEST-ETH)
+- [https://amis-delta.github.io/amisdex/exchange/?pairId=AMISTEST-ETC](https://amis-delta.github.io/amisdex/exchange/?pairId=AMISTEST-ETC)
 <img align="left" src="https://raw.githubusercontent.com/amisdex/amis-exchange-www/master/img/amisdex-preview-test.png" alt="Preview of the AmisDex Interface" style="vertical-align: bottom;">
   
 - Configured for AMISTEST-ETH https://ropsten.etherscan.io/address/0x8D9c1aA79d8e58f508180E9BF16D48f42234993e BookERC20EthV1p1 solidity v0.4.24
