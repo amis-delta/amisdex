@@ -15855,7 +15855,7 @@
                 u[c] = arguments[c];
             return n = i = o(this, (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(e, [this].concat(u))),
             i.computeBaseUrl = function() {
-                return "Ropsten Test Network" === i.props.networkName ? "https://ropsten.etherscan.io/tx/" : "Main Network" === i.props.networkName ? "https://blockscout.com/etc/mainnet/txs/" : "Rinkeby Test Network" === i.props.networkName ? "https://rinkeby.etherscan.io/rx/" : void 0
+                return "Ropsten Test Network" === i.props.networkName ? "https://ropsten.etherscan.io/tx/" : "Main Network" === i.props.networkName ? "https://etherscan.io/tx/" : "ETC Network" === i.props.networkName ? "https://blockscout.com/etc/mainnet/tx/" : "Rinkeby Test Network" === i.props.networkName ? "https://rinkeby.etherscan.io/rx/" : void 0
             }
             ,
             a = n,
@@ -28345,6 +28345,11 @@
             name: "Kovan Test Network",
             liveness: "TEST"
         },
+        61: {
+            networkId: "61",
+            name: "ETC Network",
+            liveness: "LIVE"
+        },
         1: {
             networkId: "1",
             name: "Main Network",
@@ -28570,7 +28575,7 @@
             }
         },
         "AMIS-ETC": {
-            networkId: "1",
+            networkId: "61",
             bookAddress: "0xe4cdd296ac85c7d8477988f582d457e638349947",
             bookAbiArray: i,
             symbol: "AMIS-ETC",
@@ -33391,7 +33396,7 @@
                 }, s.a.createElement("p", null, "You seem to have changed Ethereum Account."), s.a.createElement("p", null, "Try changing Ethereum Account in your Ethereum Client (e.g. Metamask, Mist, Ledger) back to ", i.props.bridgeStatus.chosenAccount, ", or reload this page to pick up the new account.")) : i.props.bridgeStatus.mightReadAccountOrders ? i.props.bridgeStatus.canReadBook && i.props.bridgeStatus.canReadAccountOrders ? i.props.ownEthBalance && new m(i.props.ownEthBalance).lt("0.005") ? s.a.createElement(u.x, {
                     header: "Low Ethereum Balance",
                     bsStyle: "danger"
-                }, s.a.createElement("p", null, 'Your Ethereum account may not have enough ETH to pay for "gas" fees.'), s.a.createElement("p", null, "Gas fees are needed to send Ethereum transactions, such as when placing orders or making payments."), s.a.createElement("p", null, "Consider topping up your ", i.props.bridgeStatus.chosenAccount, " account with more Ether (", s.a.createElement("i", null, "not"), " your book contract balance).")) : void 0 : s.a.createElement(u.x, {
+                }, s.a.createElement("p", null, 'Your Ethereum account may not have enough ETC/ETH to pay for "gas" fees.'), s.a.createElement("p", null, "Gas fees are needed to send Ethereum transactions, such as when placing orders or making payments."), s.a.createElement("p", null, "Consider topping up your ", i.props.bridgeStatus.chosenAccount, " account with more Ether (", s.a.createElement("i", null, "not"), " your book contract balance).")) : void 0 : s.a.createElement(u.x, {
                     header: "Unknown Ethereum Connection Problem",
                     bsStyle: "danger"
                 }, s.a.createElement("p", null, "Some unusual problems have occurred preventing AMIS Exchange connecting to the Ethereum Network."), s.a.createElement("p", null, "Try reloading this page, or contact us on gitchat with details of the problem.")) : s.a.createElement(u.x, {
@@ -35124,7 +35129,7 @@
                 }, s.a.createElement(u.w, null, "Amount to Send"), s.a.createElement(u.s, null, s.a.createElement(e, {
                     type: "text",
                     value: this.props.amountToSend
-                }), s.a.createElement(u.s.Addon, null, "ETH"))), s.a.createElement(u.r, {
+                }), s.a.createElement(u.s.Addon, null, "ETC"))), s.a.createElement(u.r, {
                     controlId: "gasLimit"
                 }, s.a.createElement(u.w, null, "Gas Limit"), s.a.createElement(e, {
                     type: "text",
@@ -35660,6 +35665,8 @@
                     return "https://ropsten.infura.io/" + e;
                 if ("1" === t)
                     return "https://mainnet.infura.io/" + e;
+                if ("2" === t)
+                    return "https://classic.blockscout.com/" + e;
                 if ("4" === t)
                     return "https://rinkeby.infura.io/" + e;
                 if ("61" === t)
@@ -35775,13 +35782,13 @@
             ,
             this.submitDepositQuote = function(e, t) {
                 if (i.checkCanSendTransactions(t)) {
-                    i.sendTransaction("deposit ETH into the book contract", "balance change", i.bookContract.address, i.bookContract.depositQuote, [], u.a.encodeQuoteAmount(e), 15e4, t)
+                    i.sendTransaction("deposit ETC/ETH into the book contract", "balance change", i.bookContract.address, i.bookContract.depositQuote, [], u.a.encodeQuoteAmount(e), 15e4, t)
                 }
             }
             ,
             this.submitWithdrawQuote = function(e, t) {
                 if (i.checkCanSendTransactions(t)) {
-                    i.sendTransaction("withdraw ETH from the book contract", "balance change", i.bookContract.address, i.bookContract.withdrawQuote, [u.a.encodeQuoteAmount(e).valueOf()], new p(0), 15e4, t)
+                    i.sendTransaction("withdraw ETC/ETH from the book contract", "balance change", i.bookContract.address, i.bookContract.withdrawQuote, [u.a.encodeQuoteAmount(e).valueOf()], new p(0), 15e4, t)
                 }
             }
             ,
