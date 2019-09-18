@@ -1558,7 +1558,7 @@
         return o(d, e)
     }
     ;
-    t.cntrDecimals = 18,
+    t.quoteDecimals = 18,
     t.rwrdDecimals = 18,
     t.invalidPricePacked = 0,
     t.maxBuyPricePacked = 1,
@@ -1737,12 +1737,12 @@
         return t.encodeAmount(e, n)
     }
     ,
-    t.decodeCntrAmount = function(e) {
-        return t.decodeAmount(e, t.cntrDecimals)
+    t.decodeQuoteAmount = function(e) {
+        return t.decodeAmount(e, t.quoteDecimals)
     }
     ,
-    t.encodeCntrAmount = function(e) {
-        return t.encodeAmount(e, t.cntrDecimals)
+    t.encodeQuoteAmount = function(e) {
+        return t.encodeAmount(e, t.quoteDecimals)
     }
     ,
     t.decodeRwrdAmount = function(e) {
@@ -1819,7 +1819,7 @@
     t.decodeClientBalances = function(e, n) {
         return {
             exchangeBase: t.decodeBaseAmount(e[0], n),
-            exchangeCntr: t.decodeCntrAmount(e[1]),
+            exchangeQuote: t.decodeQuoteAmount(e[1]),
             exchangeRwrd: t.decodeRwrdAmount(e[2]),
             approvedBase: t.decodeBaseAmount(e[3], n),
             approvedRwrd: t.decodeRwrdAmount(e[4]),
@@ -1837,8 +1837,8 @@
             status: t.decodeStatus(e[4]),
             reasonCode: t.decodeReasonCode(e[5]),
             rawExecutedBase: e[6],
-            rawExecutedCntr: e[7],
-            rawFeesBaseOrCntr: e[8],
+            rawExecutedQuote: e[7],
+            rawFeesBaseOrQuote: e[8],
             rawFeesRwrd: e[9]
         }
     }
@@ -1853,8 +1853,8 @@
             status: t.decodeStatus(n[4]),
             reasonCode: t.decodeReasonCode(n[5]),
             rawExecutedBase: n[6],
-            rawExecutedCntr: n[7],
-            rawFeesBaseOrCntr: n[8],
+            rawExecutedQuote: n[7],
+            rawFeesBaseOrQuote: n[8],
             rawFeesRwrd: n[9]
         }
     }
@@ -1865,8 +1865,8 @@
             status: t.decodeStatus(n[0]),
             reasonCode: t.decodeReasonCode(n[1]),
             rawExecutedBase: n[2],
-            rawExecutedCntr: n[3],
-            rawFeesBaseOrCntr: n[4],
+            rawExecutedQuote: n[3],
+            rawFeesBaseOrQuote: n[4],
             rawFeesRwrd: n[5]
         }
     }
@@ -25664,20 +25664,20 @@
         void 0 === t && (t = -5),
         this.bigZero = new o(0),
         this.balanceBaseForClient = {},
-        this.balanceCntrForClient = {},
+        this.balanceQuoteForClient = {},
         this.balanceRwrdForClient = {},
         this.approvedBaseForClient = {},
         this.approvedRwrdForClient = {},
         this.ownBaseForClient = {},
-        this.ownCntrForClient = {},
+        this.ownQuoteForClient = {},
         this.ownRwrdForClient = {},
         this.orderForOrderId = {},
         this.orderChainForPrice = {},
         this.baseMinRemainingSize = new o("10000000000000000"),
         this.baseMinInitialSize = new o(e),
         this.baseMaxSize = new o("1e32"),
-        this.cntrMinInitialSize = new o("10000000000000000"),
-        this.cntrMaxSize = new o("1e32"),
+        this.quoteMinInitialSize = new o("10000000000000000"),
+        this.quoteMaxSize = new o("1e32"),
         this.feesPer10K = 5,
         this.ethRwrdRate = 1e3,
         this.events = []
@@ -25699,27 +25699,27 @@
     }
     ,
     r.prototype.getClientBalances = function(e) {
-        return [this._getOrDflt(this.balanceBaseForClient, e, this.bigZero), this._getOrDflt(this.balanceCntrForClient, e, this.bigZero), this._getOrDflt(this.balanceRwrdForClient, e, this.bigZero), this._getOrDflt(this.approvedBaseForClient, e, this.bigZero), this._getOrDflt(this.approvedRwrdForClient, e, this.bigZero), this._getOrDflt(this.ownBaseForClient, e, this.bigZero), this._getOrDflt(this.ownRwrdForClient, e, this.bigZero)]
+        return [this._getOrDflt(this.balanceBaseForClient, e, this.bigZero), this._getOrDflt(this.balanceQuoteForClient, e, this.bigZero), this._getOrDflt(this.balanceRwrdForClient, e, this.bigZero), this._getOrDflt(this.approvedBaseForClient, e, this.bigZero), this._getOrDflt(this.approvedRwrdForClient, e, this.bigZero), this._getOrDflt(this.ownBaseForClient, e, this.bigZero), this._getOrDflt(this.ownRwrdForClient, e, this.bigZero)]
     }
     ,
-    r.prototype.getOwnCntrBalance = function(e) {
-        return this._getOrDflt(this.ownCntrForClient, e, this.bigZero)
+    r.prototype.getOwnQuoteBalance = function(e) {
+        return this._getOrDflt(this.ownQuoteForClient, e, this.bigZero)
     }
     ,
     r.prototype.depositBaseForTesting = function(e, t) {
         this._creditFundsBase(e, t)
     }
     ,
-    r.prototype.depositCntrForTesting = function(e, t) {
-        this._creditFundsCntr(e, t)
+    r.prototype.depositQuoteForTesting = function(e, t) {
+        this._creditFundsQuote(e, t)
     }
     ,
     r.prototype.setBalancesForTesting = function(e, t, n, r, o, i, a) {
         this.balanceBaseForClient[e] = t,
-        this.balanceCntrForClient[e] = n,
+        this.balanceQuoteForClient[e] = n,
         this.balanceRwrdForClient[e] = r,
         this.ownBaseForClient[e] = o,
-        this.ownCntrForClient[e] = i,
+        this.ownQuoteForClient[e] = i,
         this.ownRwrdForClient[e] = a
     }
     ,
@@ -25749,20 +25749,20 @@
         this._creditFundsBase(e, t.negated())
     }
     ,
-    r.prototype.depositCntr = function(e, t) {
-        var n = this.ownCntrForClient[e];
+    r.prototype.depositQuote = function(e, t) {
+        var n = this.ownQuoteForClient[e];
         if (!n || n.lt(t))
-            throw new Error("insufficient cntr funds in own address");
-        this._creditFunds(this.ownCntrForClient, e, t.negated()),
-        this._creditFundsCntr(e, t)
+            throw new Error("insufficient quote funds in own address");
+        this._creditFunds(this.ownQuoteForClient, e, t.negated()),
+        this._creditFundsQuote(e, t)
     }
     ,
-    r.prototype.withdrawCntr = function(e, t) {
-        var n = this.balanceCntrForClient[e];
+    r.prototype.withdrawQuote = function(e, t) {
+        var n = this.balanceQuoteForClient[e];
         if (!n || n.lt(t))
-            throw new Error("insufficient cntr funds in book");
-        this._creditFunds(this.ownCntrForClient, e, t),
-        this._creditFundsCntr(e, t.negated())
+            throw new Error("insufficient quote funds in book");
+        this._creditFunds(this.ownQuoteForClient, e, t),
+        this._creditFundsQuote(e, t.negated())
     }
     ,
     r.prototype.rwrdTokenApprove = function(e, t) {
@@ -25802,8 +25802,8 @@
         this._creditFunds(this.balanceBaseForClient, e, t)
     }
     ,
-    r.prototype._creditFundsCntr = function(e, t) {
-        this._creditFunds(this.balanceCntrForClient, e, t)
+    r.prototype._creditFundsQuote = function(e, t) {
+        this._creditFunds(this.balanceQuoteForClient, e, t)
     }
     ,
     r.prototype._creditFundsRwrd = function(e, t) {
@@ -25870,13 +25870,13 @@
             client: e,
             price: this._normalisePrice(n),
             sizeBase: r,
-            sizeCntr: this.bigZero,
+            sizeQuote: this.bigZero,
             terms: o,
             status: "Unknown",
             reasonCode: "None",
             executedBase: this.bigZero,
-            executedCntr: this.bigZero,
-            feesBaseOrCntr: this.bigZero,
+            executedQuote: this.bigZero,
+            feesBaseOrQuote: this.bigZero,
             feesRwrd: this.bigZero
         };
         if (this.orderForOrderId[t] = a,
@@ -25886,9 +25886,9 @@
         if (r.lt(this.baseMinInitialSize) || r.gte(this.baseMaxSize))
             return a.status = "Rejected",
             void (a.reasonCode = "InvalidSize");
-        var s = this.computeAmountCntr(r, n);
-        return s.lt(this.cntrMinInitialSize) || s.gte(this.cntrMaxSize) ? (a.status = "Rejected",
-        void (a.reasonCode = "InvalidSize")) : (a.sizeCntr = s,
+        var s = this.computeAmountQuote(r, n);
+        return s.lt(this.quoteMinInitialSize) || s.gte(this.quoteMaxSize) ? (a.status = "Rejected",
+        void (a.reasonCode = "InvalidSize")) : (a.sizeQuote = s,
         this._debitFundsForOrder(a) ? void this._processOrder(a, i) : (a.status = "Rejected",
         void (a.reasonCode = "InsufficientFunds")))
     }
@@ -26046,7 +26046,7 @@
         this._makePrice(t, n[1], n[2])
     }
     ,
-    r.prototype.computeAmountCntr = function(e, t) {
+    r.prototype.computeAmountQuote = function(e, t) {
         var n = this._splitPrice(t);
         if ("Invalid" === n[0])
             throw "not a valid sided price: " + t;
@@ -26059,7 +26059,7 @@
     r.prototype._debitFundsForOrder = function(e) {
         if (this._isBuyPrice(e.price)) {
             var t = this.getClientBalances(e.client)[1];
-            return !t.lt(e.sizeCntr) && (this.balanceCntrForClient[e.client] = t.minus(e.sizeCntr),
+            return !t.lt(e.sizeQuote) && (this.balanceQuoteForClient[e.client] = t.minus(e.sizeQuote),
             !0)
         }
         var n = this.getClientBalances(e.client)[0];
@@ -26068,26 +26068,26 @@
     }
     ,
     r.prototype._processOrder = function(e, t) {
-        var n, r = e.executedBase, o = e.executedCntr;
+        var n, r = e.executedBase, o = e.executedQuote;
         n = this._isBuyPrice(e.price) ? "Sell @ 0.00000100" : "Buy @ 990000";
         var i = this.oppositePrice(e.price)
           , a = this._matchAgainstBook(e, n, i, t);
         if (e.executedBase.gt(r)) {
             var s = e.executedBase.minus(r)
-              , u = e.executedCntr.minus(o)
+              , u = e.executedQuote.minus(o)
               , c = u.times(this.feesPer10K).dividedToIntegerBy(1e4).times(this.ethRwrdRate);
             if (c.lte(this.getClientBalances(e.client)[2]))
                 this._creditFundsRwrd(e.client, c.negated()),
-                this._isBuyPrice(e.price) ? this._creditFundsBase(e.client, s) : this._creditFundsCntr(e.client, u),
+                this._isBuyPrice(e.price) ? this._creditFundsBase(e.client, s) : this._creditFundsQuote(e.client, u),
                 e.feesRwrd = e.feesRwrd.add(c);
             else if (this._isBuyPrice(e.price)) {
                 var l = s.times(this.feesPer10K).dividedToIntegerBy(1e4);
                 this._creditFundsBase(e.client, s.minus(l)),
-                e.feesBaseOrCntr = e.feesBaseOrCntr.add(l)
+                e.feesBaseOrQuote = e.feesBaseOrQuote.add(l)
             } else {
                 var f = u.times(this.feesPer10K).dividedToIntegerBy(1e4);
-                this._creditFundsCntr(e.client, u.minus(f)),
-                e.feesBaseOrCntr = e.feesBaseOrCntr.add(f)
+                this._creditFundsQuote(e.client, u.minus(f)),
+                e.feesBaseOrQuote = e.feesBaseOrQuote.add(f)
             }
         }
         if ("ImmediateOrCancel" === e.terms) {
@@ -26128,7 +26128,7 @@
     }
     ,
     r.prototype._refundUnmatchedAndFinish = function(e, t, n) {
-        this._isBuyPrice(e.price) ? this._creditFundsCntr(e.client, e.sizeCntr.minus(e.executedCntr)) : this._creditFundsBase(e.client, e.sizeBase.minus(e.executedBase)),
+        this._isBuyPrice(e.price) ? this._creditFundsQuote(e.client, e.sizeQuote.minus(e.executedQuote)) : this._creditFundsBase(e.client, e.sizeBase.minus(e.executedBase)),
         e.status = t,
         e.reasonCode = n
     }
@@ -26173,12 +26173,12 @@
     r.prototype._matchWithTheirs = function(e, t) {
         var n, r = e.sizeBase.minus(e.executedBase), o = t.sizeBase.minus(t.executedBase);
         n = r.lt(o) ? r : o;
-        var i = this.computeAmountCntr(n, t.price);
+        var i = this.computeAmountQuote(n, t.price);
         e.executedBase = e.executedBase.add(n),
-        e.executedCntr = e.executedCntr.add(i),
+        e.executedQuote = e.executedQuote.add(i),
         t.executedBase = t.executedBase.add(n),
-        t.executedCntr = t.executedCntr.add(i),
-        this._isBuyPrice(t.price) ? this._creditFundsBase(t.client, n) : this._creditFundsCntr(t.client, i);
+        t.executedQuote = t.executedQuote.add(i),
+        this._isBuyPrice(t.price) ? this._creditFundsBase(t.client, n) : this._creditFundsQuote(t.client, i);
         var a = t.sizeBase.minus(t.executedBase);
         a.lt(this.baseMinRemainingSize) ? (this._refundUnmatchedAndFinish(t, "Done", "None"),
         this._raiseEvent({
@@ -26293,10 +26293,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -26307,10 +26307,10 @@
     }, {
         constant: !1,
         inputs: [{
-            name: "amountCntr",
+            name: "amountQuote",
             type: "uint256"
         }],
-        name: "withdrawCntr",
+        name: "withdrawQuote",
         outputs: [],
         payable: !1,
         type: "function"
@@ -26331,7 +26331,7 @@
             name: "_baseMinInitialSize",
             type: "uint256"
         }, {
-            name: "_cntrMinInitialSize",
+            name: "_quoteMinInitialSize",
             type: "uint256"
         }, {
             name: "_feePer10K",
@@ -26359,10 +26359,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -26393,7 +26393,7 @@
     }, {
         constant: !1,
         inputs: [],
-        name: "depositCntr",
+        name: "depositQuote",
         outputs: [],
         payable: !0,
         type: "function"
@@ -26415,7 +26415,7 @@
             name: "bookBalanceBase",
             type: "uint256"
         }, {
-            name: "bookBalanceCntr",
+            name: "bookBalanceQuote",
             type: "uint256"
         }, {
             name: "bookBalanceRwrd",
@@ -26487,10 +26487,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -26679,10 +26679,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -26693,10 +26693,10 @@
     }, {
         constant: !1,
         inputs: [{
-            name: "amountCntr",
+            name: "amountQuote",
             type: "uint256"
         }],
-        name: "withdrawCntr",
+        name: "withdrawQuote",
         outputs: [],
         payable: !1,
         type: "function"
@@ -26717,7 +26717,7 @@
             name: "_baseMinInitialSize",
             type: "uint256"
         }, {
-            name: "_cntrMinInitialSize",
+            name: "_quoteMinInitialSize",
             type: "uint256"
         }, {
             name: "_feeDivisor",
@@ -26745,10 +26745,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -26779,7 +26779,7 @@
     }, {
         constant: !1,
         inputs: [],
-        name: "depositCntr",
+        name: "depositQuote",
         outputs: [],
         payable: !0,
         type: "function"
@@ -26801,7 +26801,7 @@
             name: "bookBalanceBase",
             type: "uint256"
         }, {
-            name: "bookBalanceCntr",
+            name: "bookBalanceQuote",
             type: "uint256"
         }, {
             name: "bookBalanceRwrd",
@@ -26873,10 +26873,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27065,10 +27065,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27079,10 +27079,10 @@
     }, {
         constant: !1,
         inputs: [{
-            name: "amountCntr",
+            name: "amountQuote",
             type: "uint256"
         }],
-        name: "withdrawCntr",
+        name: "withdrawQuote",
         outputs: [],
         payable: !1,
         type: "function"
@@ -27103,7 +27103,7 @@
             name: "_baseMinInitialSize",
             type: "uint256"
         }, {
-            name: "_cntrMinInitialSize",
+            name: "_quoteMinInitialSize",
             type: "uint256"
         }, {
             name: "_feeDivisor",
@@ -27131,10 +27131,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27165,7 +27165,7 @@
     }, {
         constant: !1,
         inputs: [],
-        name: "depositCntr",
+        name: "depositQuote",
         outputs: [],
         payable: !0,
         type: "function"
@@ -27187,7 +27187,7 @@
             name: "bookBalanceBase",
             type: "uint256"
         }, {
-            name: "bookBalanceCntr",
+            name: "bookBalanceQuote",
             type: "uint256"
         }, {
             name: "bookBalanceRwrd",
@@ -27259,10 +27259,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27455,10 +27455,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27469,10 +27469,10 @@
     }, {
         constant: !1,
         inputs: [{
-            name: "amountCntr",
+            name: "amountQuote",
             type: "uint256"
         }],
-        name: "withdrawCntr",
+        name: "withdrawQuote",
         outputs: [],
         payable: !1,
         type: "function"
@@ -27493,7 +27493,7 @@
             name: "_baseMinInitialSize",
             type: "uint256"
         }, {
-            name: "_cntrMinInitialSize",
+            name: "_quoteMinInitialSize",
             type: "uint256"
         }, {
             name: "_feeDivisor",
@@ -27521,10 +27521,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27574,7 +27574,7 @@
     }, {
         constant: !1,
         inputs: [],
-        name: "depositCntr",
+        name: "depositQuote",
         outputs: [],
         payable: !0,
         type: "function"
@@ -27596,7 +27596,7 @@
             name: "bookBalanceBase",
             type: "uint256"
         }, {
-            name: "bookBalanceCntr",
+            name: "bookBalanceQuote",
             type: "uint256"
         }, {
             name: "bookBalanceRwrd",
@@ -27668,10 +27668,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27851,10 +27851,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27865,10 +27865,10 @@
     }, {
         constant: !1,
         inputs: [{
-            name: "amountCntr",
+            name: "amountQuote",
             type: "uint256"
         }],
-        name: "withdrawCntr",
+        name: "withdrawQuote",
         outputs: [],
         payable: !1,
         type: "function"
@@ -27889,7 +27889,7 @@
             name: "_baseMinInitialSize",
             type: "uint256"
         }, {
-            name: "_cntrMinInitialSize",
+            name: "_quoteMinInitialSize",
             type: "uint256"
         }, {
             name: "_minPriceExponent",
@@ -27920,10 +27920,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -27973,7 +27973,7 @@
     }, {
         constant: !1,
         inputs: [],
-        name: "depositCntr",
+        name: "depositQuote",
         outputs: [],
         payable: !0,
         type: "function"
@@ -27995,7 +27995,7 @@
             name: "bookBalanceBase",
             type: "uint256"
         }, {
-            name: "bookBalanceCntr",
+            name: "bookBalanceQuote",
             type: "uint256"
         }, {
             name: "bookBalanceRwrd",
@@ -28067,10 +28067,10 @@
             name: "executedBase",
             type: "uint256"
         }, {
-            name: "executedCntr",
+            name: "executedQuote",
             type: "uint256"
         }, {
-            name: "feesBaseOrCntr",
+            name: "feesBaseOrQuote",
             type: "uint256"
         }, {
             name: "feesRwrd",
@@ -28367,7 +28367,7 @@
                 abiArray: [],
                 minInitialSize: "0.01"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28398,7 +28398,7 @@
                 abiArray: s,
                 minInitialSize: "0.01"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28429,7 +28429,7 @@
                 abiArray: s,
                 minInitialSize: "1000"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28460,7 +28460,7 @@
                 abiArray: s,
                 minInitialSize: "0.0001"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28491,7 +28491,7 @@
                 abiArray: s,
                 minInitialSize: "0.0001"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28522,7 +28522,7 @@
                 abiArray: s,
                 minInitialSize: "0.1"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28553,7 +28553,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28566,6 +28566,38 @@
                 decimals: 18,
                 name: "Test Ubi Reward Token (Rinkeby)",
                 address: "0x76316acf8c8628c6df4730492e62a36ca00995d1",
+                abiArray: s
+            }
+        },
+        "AMIS-ETC": {
+            networkId: "1",
+            bookAddress: "0xe4cdd296ac85c7d8477988f582d457e638349947",
+            bookAbiArray: i,
+            symbol: "AMIS-ETC",
+            bookStartBlock: 8812808,
+            priceRangeAdjustment: -2,
+            base: {
+                tradableType: "ERC20",
+                symbol: "AMIS",
+                decimals: 9,
+                name: "AMIS",
+                address: "0xd8ebe4e6ac8d3c85e2f243e11e8b96c9b12c85af",
+                abiArray: s,
+                minInitialSize: "0.001"
+            },
+            quote: {
+                tradableType: "Ether",
+                symbol: "ETC",
+                decimals: 18,
+                name: "Ether",
+                minInitialSize: "0.001"
+            },
+            rwrd: {
+                tradableType: "ERC20",
+                symbol: "WETC",
+                decimals: 18,
+                name: "Wrapped ETC",
+                address: "0xef3da599a7c0de182f4af53032e57cc5d06551a7",
                 abiArray: s
             }
         },
@@ -28585,7 +28617,7 @@
                 abiArray: s,
                 minInitialSize: "0.1"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28618,7 +28650,7 @@
                 abiArray: s,
                 minInitialSize: "0.1"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28651,7 +28683,7 @@
                 abiArray: s,
                 minInitialSize: "0.1"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28684,7 +28716,7 @@
                 minInitialSize: "1.0",
                 notes: "This is the new eBTC token following the token swap on 2017-10-30."
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28716,7 +28748,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28748,7 +28780,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28780,7 +28812,7 @@
                 abiArray: s,
                 minInitialSize: "0.1"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28812,7 +28844,7 @@
                 abiArray: s,
                 minInitialSize: "100.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28844,7 +28876,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28876,7 +28908,7 @@
                 abiArray: s,
                 minInitialSize: "10.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28908,7 +28940,7 @@
                 abiArray: s,
                 minInitialSize: "10.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -28939,7 +28971,7 @@
                     abiArray: s,
                     minInitialSize: "10.0"
                 },
-                cntr: {
+                quote: {
                     tradableType: "Ether",
                     symbol: "ETH",
                     decimals: 18,
@@ -28972,7 +29004,7 @@
                 abiArray: s,
                 minInitialSize: "10.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29004,7 +29036,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29036,7 +29068,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29068,7 +29100,7 @@
                 abiArray: s,
                 minInitialSize: "100"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29100,7 +29132,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29132,7 +29164,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29164,7 +29196,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29197,7 +29229,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29229,7 +29261,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29261,7 +29293,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29294,7 +29326,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29326,7 +29358,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -29359,7 +29391,7 @@
                 abiArray: s,
                 minInitialSize: "1.0"
             },
-            cntr: {
+            quote: {
                 tradableType: "Ether",
                 symbol: "ETH",
                 decimals: 18,
@@ -31595,12 +31627,12 @@
                 pairInfo: i,
                 balances: {
                     exchangeBase: "",
-                    exchangeCntr: "",
+                    exchangeQuote: "",
                     exchangeRwrd: "",
                     approvedBase: "",
                     approvedRwrd: "",
                     ownBase: "",
-                    ownCntr: "",
+                    ownQuote: "",
                     ownRwrd: ""
                 },
                 paymentTabKey: "none",
@@ -31610,10 +31642,10 @@
                 withdrawBase: {
                     amount: "0.0"
                 },
-                depositCntr: {
+                depositQuote: {
                     amount: "0.0"
                 },
-                withdrawCntr: {
+                withdrawQuote: {
                     amount: "0.0"
                 },
                 paymentHistory: [],
@@ -31716,7 +31748,7 @@
                     md: 12
                 }, s.a.createElement(x.a, {
                     bridgeStatus: this.state.bridgeStatus,
-                    ownEthBalance: this.state.balances.ownCntr,
+                    ownEthBalance: this.state.balances.ownQuote,
                     pairWarning: this.state.pairInfo.warning
                 }), s.a.createElement(m.NotificationContainer, null), s.a.createElement(P.a, {
                     show: this.state.showDemoHelp,
@@ -31754,7 +31786,7 @@
                     className: "small-print"
                 }, s.a.createElement("th", null), s.a.createElement("th", null, "Exchange"), s.a.createElement("th", null, "External"), s.a.createElement("th", null, "Deposit & Withdraw"))), s.a.createElement("tbody", null, s.a.createElement("tr", null, s.a.createElement("td", null, this.state.pairInfo.base.symbol), s.a.createElement(u.l, {
                     placement: "top",
-                    overlay: this.makeSimpleToolTip("Your " + this.state.pairInfo.base.name + " funds held in the contract. Can be sold for " + this.state.pairInfo.cntr.symbol + " or withdrawn.")
+                    overlay: this.makeSimpleToolTip("Your " + this.state.pairInfo.base.name + " funds held in the contract. Can be sold for " + this.state.pairInfo.quote.symbol + " or withdrawn.")
                 }, s.a.createElement("td", {
                     style: {
                         textAlign: "right"
@@ -31763,7 +31795,7 @@
                     displayAmount: this.state.balances.exchangeBase
                 })))), s.a.createElement(u.l, {
                     placement: "top",
-                    overlay: this.makeSimpleToolTip(this.state.pairInfo.base.name + " funds held by your address. You'll need to deposit them into the contract to buy " + this.state.pairInfo.cntr.symbol + ".")
+                    overlay: this.makeSimpleToolTip(this.state.pairInfo.base.name + " funds held by your address. You'll need to deposit them into the contract to buy " + this.state.pairInfo.quote.symbol + ".")
                 }, s.a.createElement("td", {
                     style: {
                         textAlign: "right"
@@ -31798,18 +31830,18 @@
                 }, s.a.createElement(u.h, {
                     glyph: "minus",
                     title: ""
-                }), "Wtd")))), s.a.createElement("tr", null, s.a.createElement("td", null, this.state.pairInfo.cntr.symbol), s.a.createElement(u.l, {
+                }), "Wtd")))), s.a.createElement("tr", null, s.a.createElement("td", null, this.state.pairInfo.quote.symbol), s.a.createElement(u.l, {
                     placement: "top",
-                    overlay: this.makeSimpleToolTip("Your " + this.state.pairInfo.cntr.name + " funds held in the contract. Can be used to buy " + this.state.pairInfo.base.symbol + " or withdrawn.")
+                    overlay: this.makeSimpleToolTip("Your " + this.state.pairInfo.quote.name + " funds held in the contract. Can be used to buy " + this.state.pairInfo.base.symbol + " or withdrawn.")
                 }, s.a.createElement("td", {
                     style: {
                         textAlign: "right"
                     }
                 }, s.a.createElement("span", null, s.a.createElement(j.a, {
-                    displayAmount: this.state.balances.exchangeCntr
+                    displayAmount: this.state.balances.exchangeQuote
                 })))), s.a.createElement(u.l, {
                     placement: "top",
-                    overlay: this.makeSimpleToolTip(this.state.pairInfo.cntr.name + " funds held by your address. You'll need to deposit them into the contract to buy " + this.state.pairInfo.base.symbol + ".")
+                    overlay: this.makeSimpleToolTip(this.state.pairInfo.quote.name + " funds held by your address. You'll need to deposit them into the contract to buy " + this.state.pairInfo.base.symbol + ".")
                 }, s.a.createElement("td", {
                     style: {
                         textAlign: "right"
@@ -31817,7 +31849,7 @@
                 }, s.a.createElement("span", {
                     className: "small-print"
                 }, s.a.createElement(j.a, {
-                    displayAmount: this.state.balances.ownCntr
+                    displayAmount: this.state.balances.ownQuote
                 })))), s.a.createElement("td", null, s.a.createElement(u.m, {
                     className: "pull-right"
                 }, s.a.createElement(u.g, {
@@ -31826,7 +31858,7 @@
                     title: "Deposit into Exchange",
                     onClick: function() {
                         return e.setState({
-                            paymentTabKey: "depositCntr"
+                            paymentTabKey: "depositQuote"
                         })
                     }
                 }, s.a.createElement(u.h, {
@@ -31838,7 +31870,7 @@
                     title: "Withdraw from Exchange",
                     onClick: function() {
                         return e.setState({
-                            paymentTabKey: "withdrawCntr"
+                            paymentTabKey: "withdrawQuote"
                         })
                     }
                 }, s.a.createElement(u.h, {
@@ -31929,8 +31961,8 @@
                     chosenAccount: this.state.bridgeStatus.chosenAccount,
                     onWithdraw: this.handleWithdrawBaseRequest
                 })), s.a.createElement(u.n.Pane, {
-                    eventKey: "depositCntr"
-                }, s.a.createElement("p", null, s.a.createElement("b", null, "Deposit ", this.state.pairInfo.cntr.symbol), s.a.createElement(u.g, {
+                    eventKey: "depositQuote"
+                }, s.a.createElement("p", null, s.a.createElement("b", null, "Deposit ", this.state.pairInfo.quote.symbol), s.a.createElement(u.g, {
                     bsSize: "xsmall",
                     className: "pull-right",
                     bsStyle: "default",
@@ -31943,13 +31975,13 @@
                     glyph: "remove",
                     title: "close"
                 }))), s.a.createElement(R.a, {
-                    symbol: this.state.pairInfo.cntr.symbol,
-                    ownAmount: this.state.balances.ownCntr,
+                    symbol: this.state.pairInfo.quote.symbol,
+                    ownAmount: this.state.balances.ownQuote,
                     chosenAccount: this.state.bridgeStatus.chosenAccount,
-                    onDeposit: this.handleDepositCntrRequest
+                    onDeposit: this.handleDepositQuoteRequest
                 })), s.a.createElement(u.n.Pane, {
-                    eventKey: "withdrawCntr"
-                }, s.a.createElement("p", null, s.a.createElement("b", null, "Withdraw ", this.state.pairInfo.cntr.symbol), s.a.createElement(u.g, {
+                    eventKey: "withdrawQuote"
+                }, s.a.createElement("p", null, s.a.createElement("b", null, "Withdraw ", this.state.pairInfo.quote.symbol), s.a.createElement(u.g, {
                     bsSize: "xsmall",
                     className: "pull-right",
                     bsStyle: "default",
@@ -31962,10 +31994,10 @@
                     glyph: "remove",
                     title: "close"
                 }))), s.a.createElement(D.a, {
-                    symbol: this.state.pairInfo.cntr.symbol,
-                    decimals: this.state.pairInfo.cntr.decimals,
+                    symbol: this.state.pairInfo.quote.symbol,
+                    decimals: this.state.pairInfo.quote.decimals,
                     chosenAccount: this.state.bridgeStatus.chosenAccount,
-                    onWithdraw: this.handleWithdrawCntrRequest
+                    onWithdraw: this.handleWithdrawQuoteRequest
                 })), s.a.createElement(u.n.Pane, {
                     eventKey: "depositRwrd"
                 }, s.a.createElement("p", null, s.a.createElement("b", null, "Deposit ", this.state.pairInfo.rwrd.symbol), s.a.createElement(u.g, {
@@ -32260,8 +32292,8 @@
             return V.a.decodeBaseAmount(t, e.baseDecimals)
         }
         ,
-        this.formatCntr = function(e) {
-            return V.a.decodeCntrAmount(e)
+        this.formatQuote = function(e) {
+            return V.a.decodeQuoteAmount(e)
         }
         ,
         this.formatEventDate = function(t) {
@@ -32511,8 +32543,8 @@
                 status: "Sending",
                 reasonCode: "None",
                 rawExecutedBase: new X(0),
-                rawExecutedCntr: new X(0),
-                rawFeesBaseOrCntr: new X(0),
+                rawExecutedQuote: new X(0),
+                rawFeesBaseOrQuote: new X(0),
                 rawFeesRwrd: new X(0),
                 modifyInProgress: void 0,
                 txnHash: void 0
@@ -32622,16 +32654,16 @@
             })
         }
         ,
-        this.handleDepositCntrRequest = function(t) {
-            var n = e.createPaymentEntry("Deposit " + e.state.pairInfo.cntr.symbol, t);
-            e.bridge.submitDepositCntr(t, function(t, r) {
+        this.handleDepositQuoteRequest = function(t) {
+            var n = e.createPaymentEntry("Deposit " + e.state.pairInfo.quote.symbol, t);
+            e.bridge.submitDepositQuote(t, function(t, r) {
                 e.handlePaymentCallback(n, t, r)
             })
         }
         ,
-        this.handleWithdrawCntrRequest = function(t) {
-            var n = e.createPaymentEntry("Withdraw " + e.state.pairInfo.cntr.symbol, t);
-            e.bridge.submitWithdrawCntr(t, function(t, r) {
+        this.handleWithdrawQuoteRequest = function(t) {
+            var n = e.createPaymentEntry("Withdraw " + e.state.pairInfo.quote.symbol, t);
+            e.bridge.submitWithdrawQuote(t, function(t, r) {
                 e.handlePaymentCallback(n, t, r)
             })
         }
@@ -32702,7 +32734,7 @@
         }
         ,
         this.handleTopNavSelect = function(t) {
-            "Home" === t ? window.open("https://amisdex.amisolution.net", "_blank") : "ViewBooks" === t ? window.open("https://amisdex.amisolution.net/products/", "_blank") : "Help" === t ? window.open("https://amisdex.amisolution.net/help/", "_blank") : "DemoHelp" === t && e.setState(function(e, t) {
+            "Home" === t ? window.open("https://amis-delta.github.io/amisdex", "_blank") : "ViewBooks" === t ? window.open("https://amis-delta.github.io/amisdex/products/", "_blank") : "Help" === t ? window.open("https://amis-delta.github.io/amisdex/help/", "_blank") : "DemoHelp" === t && e.setState(function(e, t) {
                 return {
                     showDemoHelp: !0
                 }
@@ -32746,7 +32778,7 @@
                         appearDesc: n,
                         fromAddress: r,
                         toAddress: o,
-                        amountToSend: V.a.decodeCntrAmount(i),
+                        amountToSend: V.a.decodeQuoteAmount(i),
                         gasLimit: a,
                         data: s
                     }
@@ -33044,7 +33076,7 @@
                     href: "https://etherscan.io/token/" + this.props.pairInfo.base.address,
                     target: "_blank",
                     rel: "noopener noreferrer"
-                }, this.props.pairInfo.base.symbol)) : s.a.createElement("td", null, this.props.pairInfo.base.symbol), s.a.createElement("td", null, this.props.pairInfo.cntr.symbol)), s.a.createElement("tr", null, s.a.createElement("td", null, "Name"), s.a.createElement("td", null, this.props.pairInfo.base.name), s.a.createElement("td", null, this.props.pairInfo.cntr.name)), s.a.createElement("tr", null, s.a.createElement("td", null, "Type"), s.a.createElement("td", null, this.props.pairInfo.base.tradableType), s.a.createElement("td", null, this.props.pairInfo.cntr.tradableType)), s.a.createElement("tr", null, s.a.createElement("td", null, "Minimum Order"), s.a.createElement("td", null, this.props.pairInfo.base.minInitialSize), s.a.createElement("td", null, this.props.pairInfo.cntr.minInitialSize)))), this.props.pairInfo.base.notes ? s.a.createElement(u.x, {
+                }, this.props.pairInfo.base.symbol)) : s.a.createElement("td", null, this.props.pairInfo.base.symbol), s.a.createElement("td", null, this.props.pairInfo.quote.symbol)), s.a.createElement("tr", null, s.a.createElement("td", null, "Name"), s.a.createElement("td", null, this.props.pairInfo.base.name), s.a.createElement("td", null, this.props.pairInfo.quote.name)), s.a.createElement("tr", null, s.a.createElement("td", null, "Type"), s.a.createElement("td", null, this.props.pairInfo.base.tradableType), s.a.createElement("td", null, this.props.pairInfo.quote.tradableType)), s.a.createElement("tr", null, s.a.createElement("td", null, "Minimum Order"), s.a.createElement("td", null, this.props.pairInfo.base.minInitialSize), s.a.createElement("td", null, this.props.pairInfo.quote.minInitialSize)))), this.props.pairInfo.base.notes ? s.a.createElement(u.x, {
                     bsStyle: "info"
                 }, this.props.pairInfo.base.notes) : void 0, "LIVE" === this.props.pairInfo.liveness ? s.a.createElement(u.x, {
                     bsStyle: "info"
@@ -33464,8 +33496,8 @@
                 return f.a.decodeBaseAmount(e, n.getBaseDecimals())
             }
             ,
-            n.formatCntr = function(e) {
-                return f.a.decodeCntrAmount(e)
+            n.formatQuote = function(e) {
+                return f.a.decodeQuoteAmount(e)
             }
             ,
             n.getOverallValidationResult = function() {
@@ -33528,14 +33560,14 @@
                 if (r.isNaN())
                     return [null, void 0, "N/A"];
                 var o = r.toFixed()
-                  , i = f.a.encodeCntrAmount(r)
-                  , a = n.props.pairInfo.cntr.minInitialSize;
-                if (i.lt(f.a.encodeCntrAmount(a)))
+                  , i = f.a.encodeQuoteAmount(r)
+                  , a = n.props.pairInfo.quote.minInitialSize;
+                if (i.lt(f.a.encodeQuoteAmount(a)))
                     return ["error", "Cost is too small (must be at least " + a + "), try a larger amount", o];
                 if (i.gte("1e32"))
                     return ["error", "Cost is too large, try a smaller amount"];
-                var s = n.props.balances.exchangeCntr;
-                return "" !== s && i.gt(f.a.encodeCntrAmount(s)) ? ["error", "Your Book Contract " + n.props.pairInfo.cntr.symbol + " balance is too low, try a smaller amount or deposit more funds (remember to leave a little in your account for gas)", o] : ["success", void 0, o]
+                var s = n.props.balances.exchangeQuote;
+                return "" !== s && i.gt(f.a.encodeQuoteAmount(s)) ? ["error", "Your Book Contract " + n.props.pairInfo.quote.symbol + " balance is too low, try a smaller amount or deposit more funds (remember to leave a little in your account for gas)", o] : ["success", void 0, o]
             }
             ,
             n.getCreateOrderProceedsValidationResult = function() {
@@ -33549,16 +33581,16 @@
                 if (o.isNaN())
                     return [null, void 0, "N/A"];
                 var i = o.toFixed()
-                  , a = f.a.encodeCntrAmount(o)
-                  , s = n.props.pairInfo.cntr.minInitialSize;
-                if (a.lt(f.a.encodeCntrAmount(s)))
+                  , a = f.a.encodeQuoteAmount(o)
+                  , s = n.props.pairInfo.quote.minInitialSize;
+                if (a.lt(f.a.encodeQuoteAmount(s)))
                     return ["error", "Proceeds are too small (must be at least " + s + "), try a larger amount", i];
                 if (a.gte("1e32"))
                     return ["error", "Proceeds are too large, try a smaller amount"];
                 var u = void 0;
                 if ("MakerOnly" !== r) {
                     var c = a.times("0.0005");
-                    u = "A fee of up to " + f.a.decodeCntrAmount(c) + " " + n.props.pairInfo.cntr.symbol + " may be deducted"
+                    u = "A fee of up to " + f.a.decodeQuoteAmount(c) + " " + n.props.pairInfo.quote.symbol + " may be deducted"
                 }
                 return ["success", u, i]
             }
@@ -33628,8 +33660,8 @@
             n.state = {
                 amountBase: "",
                 price: "",
-                costCntr: "",
-                returnCntr: "",
+                costQuote: "",
+                returnQuote: "",
                 terms: "GTCNoGasTopup",
                 error: ""
             },
@@ -33654,7 +33686,7 @@
                 }, s.a.createElement(u.s, null, s.a.createElement(u.s.Addon, null, "Price"), s.a.createElement(u.s.Addon, null, this.props.direction, " @ "), s.a.createElement(u.t, {
                     type: "text",
                     value: this.state.price,
-                    placeholder: "How many " + this.props.pairInfo.cntr.symbol + " per " + this.props.pairInfo.base.symbol,
+                    placeholder: "How many " + this.props.pairInfo.quote.symbol + " per " + this.props.pairInfo.base.symbol,
                     onChange: this.handleCreateOrderPriceChange
                 })), s.a.createElement(u.u, null, this.getCreateOrderPriceValidationResult()[1])), "Buy" === this.props.direction ? s.a.createElement(u.r, {
                     controlId: "createOrderCost",
@@ -33664,7 +33696,7 @@
                     value: this.getCreateOrderCostValidationResult()[2],
                     readOnly: !0,
                     onChange: function() {}
-                }), s.a.createElement(u.s.Addon, null, this.props.pairInfo.cntr.symbol)), s.a.createElement(u.u, null, this.getCreateOrderCostValidationResult()[1])) : s.a.createElement(u.r, {
+                }), s.a.createElement(u.s.Addon, null, this.props.pairInfo.quote.symbol)), s.a.createElement(u.u, null, this.getCreateOrderCostValidationResult()[1])) : s.a.createElement(u.r, {
                     controlId: "createOrderProceeds",
                     validationState: this.getCreateOrderProceedsValidationResult()[0]
                 }, s.a.createElement(u.s, null, s.a.createElement(u.s.Addon, null, "Proceeds"), s.a.createElement(u.t, {
@@ -33672,7 +33704,7 @@
                     value: this.getCreateOrderProceedsValidationResult()[2],
                     readOnly: !0,
                     onChange: function() {}
-                }), s.a.createElement(u.s.Addon, null, this.props.pairInfo.cntr.symbol)), s.a.createElement(u.u, null, this.getCreateOrderProceedsValidationResult()[1])), s.a.createElement(u.r, {
+                }), s.a.createElement(u.s.Addon, null, this.props.pairInfo.quote.symbol)), s.a.createElement(u.u, null, this.getCreateOrderProceedsValidationResult()[1])), s.a.createElement(u.r, {
                     controlId: "createOrderTerms",
                     validationState: this.getCreateOrderTermsValidationResult()[0]
                 }, s.a.createElement(u.s, null, s.a.createElement(u.s.Addon, null, "Terms"), s.a.createElement(u.t, {
@@ -33698,7 +33730,7 @@
                     text: "Place " + this.props.direction + " Order"
                 })), s.a.createElement(u.u, null, "Please read our ", s.a.createElement("a", {
                     target: "_blank",
-                    href: "https://amisdex.amisolution.net/trading-rules",
+                    href: "https://amis-delta.github.io/amisdex/trading-rules",
                     rel: "noopener noreferrer"
                 }, "Trading Rules"), " for user recommendations, guidelines and instructions defined in terms of applicable conditions. Raise an incident on ", s.a.createElement("a", {
                     target: "_blank",
@@ -34059,7 +34091,7 @@
             return o._translateMarketOrderEvent(e)
         }),
         this._rawHistoricMarketEvents = void 0,
-        this.rx.setBalancesForTesting(this.chosenAccount, i.a.encodeBaseAmount("1000", this._baseDecimals), i.a.encodeCntrAmount("200"), i.a.encodeCntrAmount("0"), i.a.encodeBaseAmount("3000", this._baseDecimals), i.a.encodeCntrAmount("600"), i.a.encodeCntrAmount("0")),
+        this.rx.setBalancesForTesting(this.chosenAccount, i.a.encodeBaseAmount("1000", this._baseDecimals), i.a.encodeQuoteAmount("200"), i.a.encodeQuoteAmount("0"), i.a.encodeBaseAmount("3000", this._baseDecimals), i.a.encodeQuoteAmount("600"), i.a.encodeQuoteAmount("0")),
         window.setInterval(this._processSendingQueue, 3e3),
         window.setInterval(this._processMiningQueue, 5e3),
         window.setTimeout(this._pollStatus, 1e3),
@@ -34205,7 +34237,7 @@
         this._addActor = function(t) {
             e._actors.push(t),
             e.rx.depositBaseForTesting(t.actorAccount, i.a.encodeBaseAmount("100000000", e._baseDecimals)),
-            e.rx.depositCntrForTesting(t.actorAccount, i.a.encodeCntrAmount("10000000"))
+            e.rx.depositQuoteForTesting(t.actorAccount, i.a.encodeQuoteAmount("10000000"))
         }
         ,
         this._advanceActors = function() {
@@ -34346,7 +34378,7 @@
         this._pollBalance = function() {
             var t = e.rx.getClientBalances(e.chosenAccount)
               , n = i.a.decodeClientBalances(t, e._baseDecimals);
-            n.ownCntr = i.a.decodeCntrAmount(e.rx.getOwnCntrBalance(e.chosenAccount));
+            n.ownQuote = i.a.decodeQuoteAmount(e.rx.getOwnQuoteBalance(e.chosenAccount));
             var r = !0
               , o = !1
               , a = void 0;
@@ -34393,17 +34425,17 @@
             }, n)
         }
         ,
-        this.submitDepositCntr = function(t, n) {
+        this.submitDepositQuote = function(t, n) {
             e._queueTxn(function() {
-                e.rx.depositCntr(e.chosenAccount, i.a.encodeCntrAmount(t))
+                e.rx.depositQuote(e.chosenAccount, i.a.encodeQuoteAmount(t))
             }, {
                 gas: 25e4
             }, n)
         }
         ,
-        this.submitWithdrawCntr = function(t, n) {
+        this.submitWithdrawQuote = function(t, n) {
             e._queueTxn(function() {
-                e.rx.withdrawCntr(e.chosenAccount, i.a.encodeCntrAmount(t))
+                e.rx.withdrawQuote(e.chosenAccount, i.a.encodeQuoteAmount(t))
             }, {
                 gas: 25e4
             }, n)
@@ -34478,10 +34510,10 @@
                     status: r.status,
                     reasonCode: r.reasonCode,
                     rawExecutedBase: r.executedBase,
-                    rawExecutedCntr: r.executedCntr,
-                    rawFeesBaseOrCntr: r.feesBaseOrCntr,
+                    rawExecutedQuote: r.executedQuote,
+                    rawFeesBaseOrQuote: r.feesBaseOrQuote,
                     rawFeesRwrd: r.feesRwrd,
-                    rawAvgPrice: r.executedCntr / r.executedBase
+                    rawAvgPrice: r.executedQuote / r.executedBase
                 };
                 n(void 0, o)
             })
@@ -34499,8 +34531,8 @@
                     status: r.status,
                     reasonCode: r.reasonCode,
                     rawExecutedBase: r.executedBase,
-                    rawExecutedCntr: r.executedCntr,
-                    rawFeesBaseOrCntr: r.feesBaseOrCntr,
+                    rawExecutedQuote: r.executedQuote,
+                    rawFeesBaseOrQuote: r.feesBaseOrQuote,
                     rawFeesRwrd: r.feesRwrd
                 };
                 n(void 0, o)
@@ -35285,8 +35317,8 @@
                 return p.a.decodeBaseAmount(e, i.props.pairInfo.base.decimals)
             }
             ,
-            i.formatCntr = function(e) {
-                return p.a.decodeCntrAmount(e)
+            i.formatQuote = function(e) {
+                return p.a.decodeQuoteAmount(e)
             }
             ,
             i.formatRwrd = function(e) {
@@ -35335,7 +35367,7 @@
                     className: this.chooseClassNameForPrice(this.props.myOrder.price)
                 }, this.props.myOrder.price)), s.a.createElement("tr", null, s.a.createElement("td", null, "Average Price"), s.a.createElement("td", {
                     className: this.chooseClassNameForPrice(this.props.myOrder.price)
-                }, this.props.myOrder.rawAvgPrice)), s.a.createElement("tr", null, s.a.createElement("td", null, "Original Size (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.props.myOrder.sizeBase)), s.a.createElement("tr", null, s.a.createElement("td", null, "Terms"), s.a.createElement("td", null, this.props.myOrder.terms)), s.a.createElement("tr", null, s.a.createElement("td", null, "Filled (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.formatBase(this.props.myOrder.rawExecutedBase))), s.a.createElement("tr", null, s.a.createElement("td", null, "Filled (", this.props.pairInfo.cntr.symbol, ")"), s.a.createElement("td", null, this.formatCntr(this.props.myOrder.rawExecutedCntr))), this.props.myOrder.price.startsWith("Buy") ? s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.formatBase(this.props.myOrder.rawFeesBaseOrCntr))) : s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.cntr.symbol, ")"), s.a.createElement("td", null, this.formatCntr(this.props.myOrder.rawFeesBaseOrCntr))), s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.rwrd.symbol, ")"), s.a.createElement("td", null, this.formatRwrd(this.props.myOrder.rawFeesRwrd))), s.a.createElement("tr", null, s.a.createElement("td", null, "Status"), s.a.createElement("td", null, this.props.myOrder.status)), s.a.createElement("tr", null, s.a.createElement("td", null, "Reason Code"), s.a.createElement("td", null, this.props.myOrder.reasonCode))))) : s.a.createElement(u.q.Body, null, "No order selected."), s.a.createElement(u.q.Footer, null, s.a.createElement(u.g, {
+                }, this.props.myOrder.rawAvgPrice)), s.a.createElement("tr", null, s.a.createElement("td", null, "Original Size (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.props.myOrder.sizeBase)), s.a.createElement("tr", null, s.a.createElement("td", null, "Terms"), s.a.createElement("td", null, this.props.myOrder.terms)), s.a.createElement("tr", null, s.a.createElement("td", null, "Filled (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.formatBase(this.props.myOrder.rawExecutedBase))), s.a.createElement("tr", null, s.a.createElement("td", null, "Filled (", this.props.pairInfo.quote.symbol, ")"), s.a.createElement("td", null, this.formatQuote(this.props.myOrder.rawExecutedQuote))), this.props.myOrder.price.startsWith("Buy") ? s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.base.symbol, ")"), s.a.createElement("td", null, this.formatBase(this.props.myOrder.rawFeesBaseOrQuote))) : s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.quote.symbol, ")"), s.a.createElement("td", null, this.formatQuote(this.props.myOrder.rawFeesBaseOrQuote))), s.a.createElement("tr", null, s.a.createElement("td", null, "Fees (", this.props.pairInfo.rwrd.symbol, ")"), s.a.createElement("td", null, this.formatRwrd(this.props.myOrder.rawFeesRwrd))), s.a.createElement("tr", null, s.a.createElement("td", null, "Status"), s.a.createElement("td", null, this.props.myOrder.status)), s.a.createElement("tr", null, s.a.createElement("td", null, "Reason Code"), s.a.createElement("td", null, this.props.myOrder.reasonCode))))) : s.a.createElement(u.q.Body, null, "No order selected."), s.a.createElement(u.q.Footer, null, s.a.createElement(u.g, {
                     onClick: this.props.onClose
                 }, "Close")))
             }
@@ -35738,15 +35770,15 @@
                 }
             }
             ,
-            this.submitDepositCntr = function(e, t) {
+            this.submitDepositQuote = function(e, t) {
                 if (i.checkCanSendTransactions(t)) {
-                    i.sendTransaction("deposit ETH into the book contract", "balance change", i.bookContract.address, i.bookContract.depositCntr, [], u.a.encodeCntrAmount(e), 15e4, t)
+                    i.sendTransaction("deposit ETH into the book contract", "balance change", i.bookContract.address, i.bookContract.depositQuote, [], u.a.encodeQuoteAmount(e), 15e4, t)
                 }
             }
             ,
-            this.submitWithdrawCntr = function(e, t) {
+            this.submitWithdrawQuote = function(e, t) {
                 if (i.checkCanSendTransactions(t)) {
-                    i.sendTransaction("withdraw ETH from the book contract", "balance change", i.bookContract.address, i.bookContract.withdrawCntr, [u.a.encodeCntrAmount(e).valueOf()], new p(0), 15e4, t)
+                    i.sendTransaction("withdraw ETH from the book contract", "balance change", i.bookContract.address, i.bookContract.withdrawQuote, [u.a.encodeQuoteAmount(e).valueOf()], new p(0), 15e4, t)
                 }
             }
             ,
@@ -35876,7 +35908,7 @@
             key: "_deliverClientEthBalance",
             value: function(e) {
                 var t = {
-                    ownCntr: u.a.decodeCntrAmount(e)
+                    ownQuote: u.a.decodeQuoteAmount(e)
                 }
                   , n = !0
                   , r = !1
