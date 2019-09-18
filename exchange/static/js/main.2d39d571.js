@@ -33379,7 +33379,7 @@
                 }, s.a.createElement("p", null, "Waiting for MetaMask, TrustWallet, Mist, Nifty, SaturnWallet or other web3 provider to initialise ...")) : i.props.bridgeStatus.web3Present ? i.props.bridgeStatus.unsupportedNetwork ? s.a.createElement(u.x, {
                     header: "Unsupported Ethereum Network",
                     bsStyle: "danger"
-                }, s.a.createElement("p", null, "This book is only available on the ", i.props.bridgeStatus.targetNetworkName, "."), s.a.createElement("p", null, "Try changing Ethereum Network in your Ethereum Client (e.g. Metamask, Mist, Ledger). You might need to reload this page.")) : i.props.bridgeStatus.networkChanged ? s.a.createElement(u.x, {
+                }, s.a.createElement("p", null, "This book is only available on the ", i.props.bridgeStatus.targetNetworkName, "."), s.a.createElement("p", null, "Try changing Ethereum Network in your Ethereum Client (e.g. Metamask, Nifty, Saturn, Trust, Mist, Ledger). You might need to reload this page.")) : i.props.bridgeStatus.networkChanged ? s.a.createElement(u.x, {
                     header: "Ethereum Network Changed",
                     bsStyle: "danger"
                 }, s.a.createElement("p", null, "You seem to have changed Ethereum Network."), s.a.createElement("p", null, "Try changing Ethereum Network in your Ethereum Client (e.g. MetaMask, Mist, Ledger) back to ", i.props.bridgeStatus.chosenSupportedNetworkName, ", or reload this page to pick up the new network.")) : i.props.bridgeStatus.accountLocked && i.props.bridgeStatus.mightReadAccountOrders ? s.a.createElement(u.x, {
@@ -35436,7 +35436,7 @@
                     chosenSupportedNetworkName: void 0,
                     targetNetworkName: i.targetNetworkInfo.name,
                     // unsupportedNetwork: !1,
-                    unsupportedNetwork: void 0,
+                    unsupportedNetwork: !61,
                     networkChanged: !1,
                     chosenAccount: void 0,
                     accountLocked: !1,
@@ -35659,9 +35659,11 @@
                 if ("3" === t)
                     return "https://ropsten.infura.io/" + e;
                 if ("1" === t)
-                    return "https://classic.blockscout.com/" + e;
+                    return "https://mainnet.infura.io/" + e;
                 if ("4" === t)
                     return "https://rinkeby.infura.io/" + e;
+                if ("61" === t)
+                    return "https://classic.blockscout.com/" ;
                 throw new Error("unknown networkId " + t)
             }
             ,
