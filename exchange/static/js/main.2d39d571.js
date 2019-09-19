@@ -35670,7 +35670,7 @@
                 if ("4" === t)
                     return "https://rinkeby.infura.io/" + e;
                 if ("61" === t)
-                    return "https://classic.blockscout.com/" ;
+                    return "https://mainnet.infura.io/"  + e;
                 throw new Error("unknown networkId " + t)
             }
             ,
