@@ -45873,13 +45873,13 @@
     }("undefined" === typeof self ? this : self)
 }
 , function(e, t, n) {
-    e.exports = n.p + "static/media/demo-logo.fce5e158.svg"
+    e.exports = n.p + "exchange/static/media/demo-logo.fce5e158.svg"
 }
 , function(e, t, n) {
-    e.exports = n.p + "static/media/ethereum_icon.c2cefd0b.svg"
+    e.exports = n.p + "exchange/static/media/ethereum_icon.c2cefd0b.svg"
 }
 , function(e, t, n) {
-    e.exports = n.p + "static/media/test-logo.50e54a8d.svg"
+    e.exports = n.p + "exchange/static/media/test-logo.50e54a8d.svg"
 }
 , function(e, t, n) {
     "use strict";
